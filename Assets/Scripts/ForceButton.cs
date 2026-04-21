@@ -15,7 +15,7 @@ public class ForceButton : MonoBehaviour
 
             if (force < 1f) return;
 
-            float multiplier = 10f;
+            float multiplier = 5f;
 
             ball.linearVelocity = Vector3.zero;
             ball.angularVelocity = Vector3.zero;
