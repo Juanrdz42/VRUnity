@@ -2,7 +2,14 @@ using UnityEngine;
 
 public class MachineBell : MonoBehaviour
 {
+    public GameObject trapdoor;
+
     bool alreadyWon = false;
+
+    void Start()
+    {
+        trapdoor.SetActive(true);
+    }
 
     void OnTriggerEnter(Collider other)
     {
@@ -12,6 +19,8 @@ public class MachineBell : MonoBehaviour
         {
             alreadyWon = true;
             Debug.Log("WIN");
+
+            trapdoor.SetActive(false);
         }
     }
 }
