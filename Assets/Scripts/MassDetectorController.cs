@@ -6,7 +6,7 @@ public class MassDetectorController : MonoBehaviour
 
     bool isObject = false;
 
-    void OnTriggerStay(Collider other)
+    /*void OnTriggerStay(Collider other)
     {
         isObject = true;
 
@@ -47,5 +47,40 @@ public class MassDetectorController : MonoBehaviour
 
 
         isObject = false;
+    } */
+
+
+    void OnTriggerEnter( Collider other)
+    {
+        Rigidbody rb = other.attachedRigidbody;
+
+        if (rb == null)
+        {
+            Debug.Log("Hay algo, pero sin masa");
+            glassDoor.SetActive(true);
+
+            return;
+        }
+
+        if (rb.mass == 5f)
+        {
+            Debug.Log("Masa correcta");
+            glassDoor.SetActive(false);
+        }
+        else if (rb.mass < 5f)
+        {
+            Debug.Log("Muy ligero");
+            glassDoor.SetActive(true);
+        }
+        else
+        {
+            Debug.Log("Muy pesado");
+            glassDoor.SetActive(true);
+        }
+    }
+
+    void OnTriggerExit()
+    {
+        glassDoor.SetActive(true);
     }
 }
