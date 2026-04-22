@@ -3,7 +3,6 @@ using UnityEngine;
 public class MachineBell : MonoBehaviour
 {
     public GameObject trapdoor;
-
     bool alreadyWon = false;
 
     void Start()
@@ -13,13 +12,14 @@ public class MachineBell : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Entró algo: " + other.name + " | tag: " + other.tag);
+
         if (alreadyWon) return;
 
-        if (other.transform.root.CompareTag("Ball"))
+        if (other.CompareTag("Ball"))
         {
             alreadyWon = true;
             Debug.Log("WIN");
-
             trapdoor.SetActive(false);
         }
     }
