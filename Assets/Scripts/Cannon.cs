@@ -7,9 +7,9 @@ public class Cannon : MonoBehaviour
     private bool buttonPressed = false;
     private Rigidbody cannonballRb = null;
 
-
     void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Entró: " + other.name + " | " + other.tag);
 
         if (other.CompareTag("Hand"))
         {
@@ -17,14 +17,19 @@ public class Cannon : MonoBehaviour
             rend.material.color = Color.green;
             Debug.Log("Botón presionado");
 
-            TryShoot();
+            TryShoot(); // 👈 IMPORTANTE
         }
-
 
         if (other.CompareTag("CannonBall"))
         {
             cannonballRb = other.attachedRigidbody;
+
+            if (cannonballRb == null)
+                cannonballRb = other.GetComponent<Rigidbody>();
+
             Debug.Log("Cannonball dentro del cañón");
+
+            TryShoot(); // 👈 IMPORTANTE TAMBIÉN
         }
     }
 
@@ -44,12 +49,18 @@ public class Cannon : MonoBehaviour
 
     void TryShoot()
     {
-
         if (buttonPressed && cannonballRb != null)
         {
             Debug.Log("🔥 DISPARO DEL CAÑÓN");
 
             cannonballRb.AddForce(-transform.forward * 2000f, ForceMode.Impulse);
+
+            // opcional: evitar disparo infinito
+            cannonballRb = null;
+        }
+        else
+        {
+            Debug.Log("No dispara → button: " + buttonPressed + " ball: " + (cannonballRb != null));
         }
     }
 }
