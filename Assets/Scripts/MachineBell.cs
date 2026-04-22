@@ -4,6 +4,7 @@ public class MachineBell : MonoBehaviour
 {
     public GameObject trapdoor;
     bool alreadyWon = false;
+    public AudioClip bellRing;
 
     void Start()
     {
@@ -21,6 +22,7 @@ public class MachineBell : MonoBehaviour
             alreadyWon = true;
             Debug.Log("WIN");
             trapdoor.SetActive(false);
+            SFXController.instance.PlaySFXAtPosition(bellRing, transform.position);
         }
     }
 }

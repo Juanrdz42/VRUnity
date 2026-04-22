@@ -3,11 +3,14 @@ using UnityEngine;
 public class ForceButton : MonoBehaviour
 {
     public Rigidbody ball;
+    public AudioClip hit;
 
     void OnCollisionEnter(Collision collision)
     {
         if (collision.transform.root.CompareTag("Hammer"))
         {
+            SFXController.instance.PlaySFXAtPosition(hit, transform.position);
+
             float force = Vector3.Dot(collision.relativeVelocity, Vector3.up);
             force = Mathf.Clamp(force, 0, 20);
 
